@@ -70,7 +70,7 @@ function About() {
 
 
 function Dashboard() {
-  let resultz = ""
+
   const [sCurr, setSCurr] = useState("");
   const [sDate, setSDate] = useState("");
   const [dataBlock, setDataBlock] = useState("");
@@ -81,8 +81,8 @@ function Dashboard() {
   const  handleClick = async () => {
     let baseCurrency = sCurr;
     let datez = sDate;
-    const currentTime = new Date();
-    const theirTime = new Date(datez);
+    let currentTime = new Date();
+    let theirTime = new Date(datez);
 
     // Only attempt API call if date is selected and that date is in the past
     if (currentTime>theirTime){
@@ -104,13 +104,13 @@ function Dashboard() {
           let parsed = JSON.parse(sliceEnd);
           setHeadDate(formdate);
           let numberOfIterations = 0;
-        
+          let resultz = ""
           Object.keys(parsed).forEach(function(key) {
             let assignIdToRow = "rowId"+numberOfIterations;
-            // I did have a third column on the table with a call to a function named handleClickChart, I had some issues with arrow functions closing html tags and moved on 
-            // I then experienced difficulties with D3 (more detail in later comment) and so did not revisit this issue. I assigned a unique id to each row but did not 
-            // use this in the end
-          resultz += '<tr id="'+assignIdToRow+'"> <td>' + key + '</td><td>' + parsed[key]+'</td></tr>';
+            // I did have a third column on the table with a call to a function named handleClickChart, I had some 
+            // issues with arrow functions closing html tags and moved on then experienced difficulties with D3 (more detail in later comment)
+            // I and so did not revisit this issue. I assigned a unique id to each row but did not use this in the end
+          resultz += '<tr id="'+assignIdToRow+'"> <td>' + key + '</td><td>' + parsed[key].toFixed(3)+'</td></tr>';
             numberOfIterations++
           })
 
@@ -123,7 +123,7 @@ function Dashboard() {
         }
       }
     else if (sDate === ""){
-      alert("Please select a date before pressing go.");
+      alert("Please select a date before pressing Go.");
     }
     else {
       alert("Future rates are unfortunately not yet available through this app. Please select a date from the past and try again.");
